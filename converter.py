@@ -21,7 +21,12 @@ def convert_folder(
     
     destiny.mkdir(parents=True, exist_ok=True)
     
-    files = [f for f in origin.iterdir() if f.is_file() and f.suffix.lower() in EXTENSIONS]
+    files = [
+        f for f in origin.iterdir()
+        if f.is_file()
+        and not f.name.startswith("~$")
+        and f.suffix.lower() in EXTENSIONS
+    ]
     
     if not files:
         print(f"No compatible files were found in: {origin.resolve()}")
